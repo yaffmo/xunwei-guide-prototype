@@ -214,7 +214,7 @@ const EXC = [
   { g: '提名', id: 'E14', name: '提名截止後進入提名頁', when: '11/25 23:59 後進入提名相關網址', how: '顯示提名已截止頁；截止前開啟、截止後才送出的表單一律送出失敗並提示', scr: '提名已截止頁', p: { phase: 'review', screen: 'msg', msgKey: 'nomClosed' } },
   { g: '提名', id: 'E15', name: '截止後編輯提名', when: '11/26 起在活動紀錄頁點「編輯」', how: '跳出「提名內容已鎖定」提示，不開啟編輯視窗', scr: '活動紀錄頁', p: { phase: 'review', loggedIn: true, nomCount: 3, screen: 'records', modal: 'editLocked' } },
   { g: '投票', id: 'E16', name: '未登入點投票', when: '未登入在店家詳情頁點「投他一票」', how: '導向登入，完成後回到同一家店的詳情頁', scr: '店家詳情 → 登入 → 店家詳情', p: { phase: 'vote', screen: 'storeDetail', storeIdx: 0 } },
-  { g: '投票', id: 'E17', name: '該品項票數已用完', when: '該品項 3 票已全部投出', how: '隱藏票數選擇與投票按鈕，改顯示已用完及其他品項剩餘票數，提供「去投其他品項」', scr: '店家詳情頁', p: { phase: 'vote', loggedIn: true, voted: true, votes: { beef: 0, douhua: 3, pine: 1 }, voteLog: [{ cat: 'beef', name: '[牛肉麵店家 02]', q: 3 }, { cat: 'pine', name: '[鳳梨酥店家 01]', q: 2 }], screen: 'storeDetail', storeIdx: 0 } },
+  { g: '投票', id: 'E17', name: '該品項票數已用完', when: '該品項 3 票已全部投出', how: '隱藏投票按鈕，改顯示已用完及其他品項剩餘票數，提供「去投其他品項」', scr: '店家詳情頁', p: { phase: 'vote', loggedIn: true, voted: true, votes: { beef: 0, douhua: 3, pine: 1 }, voteLog: [{ cat: 'beef', name: '[牛肉麵店家 01]', q: 1 }, { cat: 'beef', name: '[牛肉麵店家 02]', q: 1 }, { cat: 'beef', name: '[牛肉麵店家 03]', q: 1 }, { cat: 'pine', name: '[鳳梨酥店家 01]', q: 1 }, { cat: 'pine', name: '[鳳梨酥店家 02]', q: 1 }], screen: 'storeDetail', storeIdx: 0 } },
   { g: '投票', id: 'E18', name: '投票送出失敗（網路）', when: '網路中斷或伺服器錯誤', how: '明確告知「未記錄、未扣票」，提供重新送出；伺服器需防重複送出，同一請求只扣一次票', scr: '投票確認視窗', p: { phase: 'vote', loggedIn: true, screen: 'storeDetail', storeIdx: 4, failNext: true, modal: 'vote' } },
   { g: '投票', id: 'E19', name: '搜尋無結果', when: '關鍵字查無店家', how: '顯示空狀態與「清除搜尋」，說明未通過審查的店家不會出現在名單中', scr: '店家瀏覽頁', p: { phase: 'vote', screen: 'storeList', searchEmpty: true } },
   { g: '投票', id: 'E20', name: '投票尚未開始', when: '12/07 前進入投票相關網址', how: '顯示投票尚未開始頁與開始時間', scr: '尚未開始頁', p: { phase: 'nom', screen: 'msg', msgKey: 'voteNotOpen' } },
@@ -281,12 +281,14 @@ const A = {
   prevStore: () => set({ storeIdx: (S.storeIdx + 11) % 12, qty: 1 }),
   nextStore: () => set({ storeIdx: (S.storeIdx + 1) % 12, qty: 1 }),
   goOtherCat: () => { const st = curStore(); const c = CATS.filter(x => x !== st.cat && S.votes[x] > 0)[0]; nav('storeList', { cat: c || 'all' }); },
+  goSameCat: () => nav('storeList', { cat: curStore().cat }),
   qty: v => set({ qty: +v }),
   voteClick: () => { if (!S.loggedIn) return nav('login', { pending: 'storeDetail', pendingNote: '請先登入會員，登入後將自動回到店家頁面。', loginErr: '' }); set({ modal: 'vote' }); },
   confirmVote: () => {
     if (S.failNext) return set({ modal: 'voteFail', failNext: false });
     const st = curStore(); const v = Object.assign({}, S.votes);
-    const q = Math.min(Math.max(1, Math.min(S.qty, v[st.cat] || 1)), v[st.cat]);
+    if (!v[st.cat] || S.voteLog.some(x => x.name === st.name)) return set({ modal: '' });
+    const q = 1;
     v[st.cat] -= q;
     set({ votes: v, voteLog: S.voteLog.concat([{ cat: st.cat, name: st.name, q }]), modal: 'voteDone', lastQty: q, lastStore: st.name, firstVote: !S.voted, voted: true, qty: 1 });
   },
@@ -387,7 +389,7 @@ function home() {
     pre: { sub: '11 月 2 日起，推薦您心中念念不忘的台灣好味道', body: '牛肉麵、豆花、鳳梨酥，您心目中的第一名是哪一家？先想好您的口袋名單，11 月 2 日開放推薦，還有機會抽中現金一萬元！', period: '提名期間｜2026/11/02 – 11/25', cta: ['查看活動辦法', 'go', 'rules'] },
     nom: { sub: '推薦您心中念念不忘的台灣好味道', body: '一碗熱騰騰的牛肉麵、一碗清甜滑嫩的豆花、一盒酥香的鳳梨酥，都是台灣人最想和世界分享的滋味。您心中是否也有一家店，吃了很多年，總想帶朋友去嚐嚐？只要上網推薦，就有機會抽中現金一萬元！', period: '提名期間｜2026/11/02 – 11/25', cta: ['我要提名', 'nomRules', ''] },
     review: { sub: '感謝您的熱情推薦', body: '這段時間，我們收到了來自全台各地的好味道。基金會正逐一確認店家資料，12 月 7 日起開放全民投票，一起選出最能代表台灣的店家。', period: '全民投票｜2026/12/07 開放', cta: ['查看活動辦法', 'go', 'rules'], banner: '提名期中獎名單將於 12 月 10 日公布' },
-    vote: { sub: '為您心中的台灣好味道投下一票', body: '從全民推薦的店家中，選出您最想介紹給世界的那一家。牛肉麵、豆花、鳳梨酥每個品項各有 3 票，可以全部投給同一家，也可以分給不同店家。完成投票，就有機會抽中現金一萬元！', period: '投票期間｜2026/12/07 – 2027/01/15', cta: ['我要投票', 'vote', ''], banner: '提名期中獎名單已公布', bcta: ['查看中獎名單', 'go', 'lottery'] },
+    vote: { sub: '為您心中的台灣好味道投下一票', body: '從全民推薦的店家中，選出您最想介紹給世界的那一家。牛肉麵、豆花、鳳梨酥每個品項各有 3 票，每家店限投 1 票。完成投票，就有機會抽中現金一萬元！', period: '投票期間｜2026/12/07 – 2027/01/15', cta: ['我要投票', 'vote', ''], banner: '提名期中獎名單已公布', bcta: ['查看中獎名單', 'go', 'lottery'] },
     count: { sub: '感謝您的每一票', body: '投票已經結束，我們正在統計有效票數。2 月 25 日，30 家年度精選店家即將揭曉，敬請期待！', period: '精選店家揭曉｜2027/02/25', cta: ['查看中獎名單', 'go', 'lottery'], banner: '投票期中獎名單已公布', bcta: ['查看中獎名單', 'go', 'lottery'] },
     result: { sub: '首屆「尋味指南」30 家精選店家揭曉', body: '由全民與來台旅客共同選出的牛肉麵、豆花、鳳梨酥代表店家，將推薦給來台灣的外國旅客，讓更多人循著這份指南，嚐到最道地的台灣味。', period: '頒獎典禮｜2027/03/10　［典禮地點］', cta: ['查看得獎名單', 'go', 'winners'] }
   }[ph];
@@ -476,7 +478,7 @@ function records() {
   }
   const noms = S.nomCount ? `<div class="stack" style="gap:3px"><div class="row th"><span>店家名稱</span><span>品項</span><span>推薦理由</span><span>審核狀態</span><span>編輯</span></div>${rows}</div>`
     : `<div style="background:#fff;border-radius:10px;padding:32px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><div>您還沒有提名任何店家</div>${iff(S.phase === 'nom', b('立即提名', 'nomRules', '', 'btn btnS'))}</div>`;
-  const vrows = CATS.map(c => { const it = S.voteLog.filter(v => v.cat === c).map(v => v.name + ' ' + v.q + ' 票'); return `<div class="row row4"><span>${CAT[c]}</span><span>${3 - S.votes[c]}/3</span><span class="sp2">${it.length ? it.join('、') : '尚未投票'}</span></div>`; }).join('');
+  const vrows = CATS.map(c => { const it = S.voteLog.filter(v => v.cat === c).map(v => v.name); return `<div class="row row4"><span>${CAT[c]}</span><span>${3 - S.votes[c]}/3</span><span class="sp2">${it.length ? it.join('、') : '尚未投票'}</span></div>`; }).join('');
   const votes = vs ? `<div class="stack" style="gap:3px"><div class="row row4 th"><span>品項</span><span>已投票數</span><span class="sp2">投給哪些店家</span></div>${vrows}</div><div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><span>投票期抽獎資格：<b>${S.voted ? '已獲得' : '尚未獲得（完成任一品項投票即可獲得）'}</b></span><span style="color:#444">投票送出後無法修改</span></div>`
     : `<div style="background:#fff;border-radius:10px;padding:24px;text-align:center">全民投票將於 2026/12/07 開始，敬請期待。</div>`;
   return `<section class="phead"><h1>活動紀錄</h1></section><div style="background:#f0f0f0;padding-bottom:24px"><div class="sec stack" style="gap:28px">
@@ -487,7 +489,7 @@ function records() {
 }
 function voteRules() {
   return `<section class="phead"><h1>我要投票</h1><p>投票前，請詳閱投票規則，以保障您的參加權益。</p></section><div class="sec"><h2 style="text-align:center;font-size:30px;margin:0 0 24px">投票規則</h2>
-  <div class="rules"><b>【活動時間】</b>投票期間：2026 年 12 月 7 日 00:00 至 2027 年 1 月 15 日 23:59 止<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士及海外旅客均可參與投票。未成年人參加時，須事先取得法定代理人同意。<b>【投票規範】</b>每個會員帳號於投票期間，在三大品項中各限投 3 票（每人最多共 9 票），各品項之 3 票可集中投給同一家店家。投票送出後無法修改。<b>【投票抽獎】</b>完成任一品項投票，即可獲得 1 次投票期抽獎機會。<b>【榜單說明】</b>三大品項各依有效票數選出前 10 名，共 30 家年度精選店家。主辦單位對外不公布具體得票數與名次，得獎名單依「行政縣市順序＋店名筆畫」排列。</div>
+  <div class="rules"><b>【活動時間】</b>投票期間：2026 年 12 月 7 日 00:00 至 2027 年 1 月 15 日 23:59 止<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士及海外旅客均可參與投票。未成年人參加時，須事先取得法定代理人同意。<b>【投票規範】</b>每個會員帳號於投票期間，在三大品項中各限投 3 票（每人最多共 9 票），同一家店家限投 1 票。投票送出後無法修改。<b>【投票抽獎】</b>完成任一品項投票，即可獲得 1 次投票期抽獎機會。<b>【榜單說明】</b>三大品項各依有效票數選出前 10 名，共 30 家年度精選店家。主辦單位對外不公布具體得票數與名次，得獎名單依「行政縣市順序＋店名筆畫」排列。</div>
   <p style="text-align:center;font-size:15px;margin-top:28px">點擊「開始投票」即表示您已閱讀並同意${b('本活動相關規範', 'go', 'rules', 'linkb')}</p><div style="display:flex;justify-content:center;margin-top:12px">${b('開始投票 →', 'storeList', '', 'btn', 'style="min-width:240px"')}</div></div>`;
 }
 function storeList() {
@@ -509,8 +511,9 @@ function storeDetail() {
   let vp;
   if (S.phase !== 'vote') vp = `<div style="font-size:16px">${['count', 'result'].includes(S.phase) ? '投票已於 2027/01/15 23:59 截止，感謝您的參與。' : '全民投票將於 2026/12/07 開放，敬請期待！'}</div>`;
   else if (!S.loggedIn) vp = `<div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:16px">登入會員後即可投票，每個品項各有 3 票。</div>${b('登入並投票 →', 'voteClick', '', 'btn', 'style="min-width:220px"')}</div>`;
+  else if (S.voteLog.some(x => x.name === st.name)) vp = `<div style="display:flex;align-items:center;justify-content:space-between;gap:24px"><div class="stack" style="gap:6px"><div style="font-size:16px;font-weight:700">您已投給這家店，感謝您的支持！</div><div style="color:#444">每家店限投 1 票。${rem > 0 ? `您在「${st.catLabel}」還有 ${rem} 票，可以投給其他店家。` : `其他品項還有：${otherLeft}`}</div></div>${rem > 0 ? b('看其他' + st.catLabel.replace(/（.*/, '') + '店家 →', 'goSameCat', '', 'btn2') : iff(hasOther, b('去投其他品項 →', 'goOtherCat', '', 'btn2'))}</div>`;
   else if (rem === 0) vp = `<div style="display:flex;align-items:center;justify-content:space-between;gap:24px"><div class="stack" style="gap:6px"><div style="font-size:16px;font-weight:700">您在「${st.catLabel}」的 3 票都已投出，感謝您的支持！</div><div style="color:#444">其他品項還有：${otherLeft}</div></div>${iff(hasOther, b('去投其他品項 →', 'goOtherCat', '', 'btn2'))}</div>`;
-  else vp = `<div style="display:flex;align-items:center;justify-content:space-between;gap:24px"><div class="stack" style="gap:12px"><div style="font-size:16px">您在「${st.catLabel}」還有 <b>${rem}</b> 票，可以全部投給這一家，也可以分給其他店家。</div><div style="display:flex;align-items:center;gap:8px"><span>選擇票數：</span>${[1, 2, 3].filter(n => n <= rem).map(n => b(n + ' 票', 'qty', n, 'btn2 btnS ' + (n === qty ? 'on' : ''))).join('')}</div></div>${b('投給這家 ' + qty + ' 票 →', 'voteClick', '', 'btn', 'style="min-width:220px"')}</div>`;
+  else vp = `<div style="display:flex;align-items:center;justify-content:space-between;gap:24px"><div class="stack" style="gap:12px"><div style="font-size:16px">您在「${st.catLabel}」還有 <b>${rem}</b> 票，每家店限投 1 票。</div></div>${b('投他一票 →', 'voteClick', '', 'btn', 'style="min-width:220px"')}</div>`;
   const back = S.backTo === 'winners' ? '返回得獎名單' : '返回店家列表';
   return `<section class="phead" style="padding:32px 40px"><h1>${S.backTo === 'winners' ? '得獎名單' : '我要投票'}</h1></section><div class="sec stack" style="gap:20px">
   <div style="display:flex;justify-content:space-between">${b('← ' + back, 'backFromStore', '', 'linkb')}<div style="display:flex;gap:8px">${b('‹ 上一家', 'prevStore', '', 'btn2 btnS')}${b('下一家 ›', 'nextStore', '', 'btn2 btnS')}</div></div>
@@ -577,8 +580,8 @@ function modal() {
   const st = curStore(), rem = S.votes[st.cat], qty = Math.max(1, Math.min(S.qty, rem || 1));
   const x = b('✕', 'closeModal', '', 'navb', 'aria-label="關閉"');
   const M = {
-    vote: `<h3>確認投票</h3><p style="margin:0;line-height:1.8">您將投給「${st.name}」（${st.catLabel}）<b>${qty} 票</b>。<br>投票送出後無法修改或取消，確定要送出嗎？</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('確認送出', 'confirmVote', '')}</div>`,
-    voteDone: `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>投票成功！感謝您的支持</h3><p style="margin:0;line-height:1.8">您已投給「${S.lastStore}」${S.lastQty} 票，${st.catLabel}還剩 ${rem} 票。</p>${iff(S.firstVote, '<div class="chip" style="background:#fff6d6">恭喜您獲得投票期抽獎資格！</div>')}<div style="display:flex;gap:12px">${b('繼續逛店家', 'afterVote', '')}${b('分享這家店', 'openShare', '', 'btn2')}</div></div>`,
+    vote: `<h3>確認投票</h3><p style="margin:0;line-height:1.8">您將投給「${st.name}」（${st.catLabel}）<b>1 票</b>。<br>投票送出後無法修改或取消，確定要送出嗎？</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('確認送出', 'confirmVote', '')}</div>`,
+    voteDone: `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>投票成功！感謝您的支持</h3><p style="margin:0;line-height:1.8">您已投給「${S.lastStore}」1 票，${st.catLabel}還剩 ${rem} 票。</p>${iff(S.firstVote, '<div class="chip" style="background:#fff6d6">恭喜您獲得投票期抽獎資格！</div>')}<div style="display:flex;gap:12px">${b('繼續逛店家', 'afterVote', '')}${b('分享這家店', 'openShare', '', 'btn2')}</div></div>`,
     voteFail: `<h3>投票未完成</h3><p style="margin:0;line-height:1.8">網路連線不穩定，這次投票沒有送出，票數也不會扣除。請確認網路連線後再試一次。</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('重新送出', 'retryVote', '')}</div>`,
     share: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>分享給親友</h3>${x}</div><div class="g3" style="gap:12px"><button class="btn2">Facebook</button><button class="btn2">LINE</button>${b('複製連結', 'copyLink', '', 'btn2')}</div>${iff(S.copied, '<div class="infobox" style="text-align:center">已複製連結</div>')}<div class="anno">原型說明：從店家頁分享時帶該店專屬網址與分享圖；從首頁分享則帶活動首頁</div>`,
     edit: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>編輯提名內容</h3>${x}</div><div class="fgrid"><div class="fg"><label class="lbl" for="e-cat">推薦品項</label><select id="e-cat" class="inp"><option>牛肉麵（正餐）</option><option>豆花（甜點）</option><option>鳳梨酥（伴手禮）</option></select></div><div class="fg"><label class="lbl" for="e-name">店家名稱</label><input id="e-name" class="inp" placeholder="［原店家名稱］"></div><div class="fg"><label class="lbl" for="e-city">所在縣市</label><select id="e-city" class="inp"><option>［原縣市］</option></select></div><div class="fg"><label class="lbl" for="e-addr">店家地址</label><input id="e-addr" class="inp" placeholder="［原地址］"></div></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;font-size:14px">${['經典風味', '嚴選食材', '職人傳承', '海外友善', '造訪體驗', '在地口碑'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}</div><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('儲存修改', 'closeModal', '')}</div>`,
@@ -608,7 +611,7 @@ function flowView() {
   ${lane('<b>審查期</b>11/26 – 12/06', [[s('首頁（審查中進度＋抽獎公告預告）'), s('活動紀錄頁（查看審核狀態）'), s('點編輯 → 已鎖定提示' + exTag('E15'))]], '<b>導覽列：</b>活動首頁｜活動辦法。進入提名網址 → 提名已截止頁' + exTag('E14'))}
   ${lane('<b>投票期</b>12/07 – 01/15', [
     [s('首頁（公告列：提名抽獎名單）'), s('投票規則說明'), s('店家瀏覽（品項／縣市篩選、搜尋）' + exTag('E19')), s('店家詳情'), d('已登入？' + exTag('E16')), d('該品項尚有票？' + exTag('E17'))],
-    [s('選擇票數 1–3'), s('確認視窗（送出後不可修改）'), s('投票成功（剩餘票數、首次投票獲抽獎資格）' + exTag('E18')), s('繼續瀏覽／投其他品項／分享此店家')]
+    [s('投他一票（每家限 1 票）'), s('確認視窗（送出後不可修改）'), s('投票成功（剩餘票數、首次投票獲抽獎資格）' + exTag('E18')), s('繼續瀏覽／投其他品項／分享此店家')]
   ], '<b>導覽列：</b>活動首頁｜活動辦法｜我要投票｜抽獎公告。瀏覽不需登入，投票前才要求登入。')}
   ${lane('<b>計票期</b>01/16 – 02/24', [[s('首頁（計票中進度＋公告列）'), s('抽獎名單公告（提名期＋投票期）')]], '<b>導覽列：</b>活動首頁｜活動辦法｜抽獎公告。進入投票網址 → 投票已截止頁' + exTag('E21'))}
   ${lane('<b>成果期</b>02/25 起', [[s('首頁（頒獎典禮資訊＋榮耀時刻）'), s('得獎名單（依品項分組，組內縣市＋筆畫）'), s('店家詳情（投票已截止）／看更多（IST 官網）')]], '<b>導覽列：</b>活動首頁｜活動辦法｜得獎名單｜抽獎公告。已下架店家網址 → 404' + exTag('E22'))}
