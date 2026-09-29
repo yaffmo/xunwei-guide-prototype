@@ -343,7 +343,6 @@ function panel() {
   return `<aside class="panel ${S.panel ? '' : 'hide'}" aria-label="原型控制台">
   <div><div class="ptitle">原型控制台</div><div class="psub">看見台灣・尋味指南｜網站原型審閱版（桌機）<br>右側網站可直接點擊操作；此處可切換活動時期、登入狀態與例外情境。</div></div>
   <div class="pinfo">目前畫面：<b>${viewName()}</b><br>活動時期：${P[S.phase][0]}（${P[S.phase][1]}）｜${S.loggedIn ? '已登入' : '未登入'}</div>
-  <button class="pfb" data-a="feedback">對目前畫面提供意見</button>
   <div><div class="plabel">① 活動時期（切換後回到首頁）</div><div class="pgrid">
   ${Object.keys(P).map(k => `<button class="pbtn ${S.phase === k ? 'on' : ''}" data-a="phase" data-v="${k}"><b>${P[k][0]}</b><br>${P[k][1]}</button>`).join('')}
   </div></div>
@@ -649,6 +648,7 @@ function render() {
   if (ns) ns.scrollTop = keepTop;
   lastScreenKey = key;
   if (S.modal === 'feedback' && S.fbDraft && !S.fbSent) { const t = document.getElementById('fb-text'), n = document.getElementById('fb-name'); if (t) t.value = S.fbDraft.text; if (n) n.value = S.fbDraft.name; }
+  { const n = document.getElementById("fb-name"); if (n) { if (!n.value) { try { n.value = localStorage.getItem("fbName") || ""; } catch (e) {} } n.addEventListener("input", () => { try { localStorage.setItem("fbName", n.value.trim()); } catch (e) {} }); } }
   if (S.fbSent) S.fbDraft = null;
 }
 document.addEventListener('click', ev => {
