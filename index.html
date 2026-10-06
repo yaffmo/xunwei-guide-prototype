@@ -75,6 +75,7 @@ textarea.inp{height:96px;padding:12px}
 .mid{max-width:860px}
 .card{background:#f0f0f0;border-radius:12px;padding:32px}
 .stack{display:flex;flex-direction:column;gap:16px}
+.ph.vid{aspect-ratio:16/9;font-size:15px;line-height:1.7}
 .ph{background:#d9d9d9;display:flex;align-items:center;justify-content:center;color:#444;font-size:14px;border-radius:8px;text-align:center;padding:8px}
 .tag{display:inline-flex;align-self:flex-start;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:600;background:#333;color:#fff}
 .chip{display:inline-flex;align-items:center;padding:6px 14px;border-radius:999px;background:#fff;border:1px solid #ccc;font-size:14px;font-weight:600}
@@ -82,6 +83,8 @@ textarea.inp{height:96px;padding:12px}
 .rules{background:#f0f0f0;padding:28px 36px;font-size:15px;line-height:1.8;border-radius:12px}
 .rules b{display:block;margin-top:14px}
 .rules b:first-child{margin-top:0}
+.lsub{margin-top:6px;padding-left:16px;border-left:3px solid #d0d0d0}
+.lsub b{font-weight:600;margin-top:8px}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:46px;border:1px solid #c7c7c7;border-radius:6px;background:#fff;font-size:15px;cursor:pointer}
 .divider{display:flex;align-items:center;gap:12px;color:#555;font-size:13px;margin:6px 0}
 .divider:before,.divider:after{content:"";flex:1;border-top:1px dashed #999}
@@ -111,7 +114,7 @@ textarea.inp{height:96px;padding:12px}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.g7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.g6{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
 .dark{background:#333!important;color:#fff}
 .header{height:72px;display:flex;align-items:center;padding:0 40px;gap:36px;border-bottom:1px solid #e5e5e5;background:#fff;position:sticky;top:0;z-index:10}
 .header nav{display:flex;gap:26px;flex:1}
@@ -151,6 +154,58 @@ textarea.inp{height:96px;padding:12px}
 
 .narrowWarn{display:none;background:#fff6d6;padding:10px 16px;font-size:13px;border-bottom:1px solid #e6cf7a}
 @media (max-width:1100px){.panel{position:fixed;z-index:50;left:0;top:0;box-shadow:4px 0 20px rgba(0,0,0,.3)}.narrowWarn{display:block}}
+/* 手機版 */
+.mstage{display:flex;justify-content:center}
+.browser.phone{width:390px;max-width:100%;border-radius:28px;border:8px solid #1f2328}
+.phone .urlbar span{min-width:0;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-left:4px}
+.phone .urlbar i{display:none}
+.mhead{height:60px;padding:0 8px 0 16px;gap:8px}
+.mnav{position:absolute;left:0;right:0;top:60px;background:#fff;border-bottom:1px solid #ddd;box-shadow:0 8px 16px rgba(0,0,0,.1);display:flex;flex-direction:column;padding:8px 16px 12px}
+.mnav .navb{justify-content:flex-start;font-size:16px}
+.mnav .navb.on{box-shadow:none;text-decoration:underline}
+.mnav hr{border:0;border-top:1px solid #e5e5e5;margin:6px 0;width:100%}
+.phone .sec{padding:28px 16px}
+.phone .hero{padding:28px 16px}
+.phone .heroRow{flex-direction:column;align-items:stretch;gap:20px}
+.phone .ht{font-size:28px}
+.phone .hs{font-size:18px}
+.phone .phead{padding:28px 16px!important}
+.phone .phead h1{font-size:24px}
+.phone .phead p{font-size:15px}
+.phone .banner{padding:12px 16px}
+.phone .banner .wrap{flex-direction:column;align-items:flex-start;gap:10px}
+.phone .g3,.phone .g4,.phone .fgrid{grid-template-columns:minmax(0,1fr)}
+.phone .storeGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.phone .g6{grid-template-columns:repeat(2,minmax(0,1fr))}
+.phone .steps{flex-direction:column;align-items:center;gap:28px}
+.phone .dot{width:64px;height:64px;font-size:22px}
+.phone .card{padding:20px}
+.phone .rules{padding:20px 18px;font-size:14px}
+.phone .row{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
+.phone .row.th{display:none}
+.phone .foot{padding:24px 16px}
+.phone .foot .wrap{flex-direction:column;gap:16px}
+.phone .floats{right:14px;bottom:14px;gap:10px}
+.phone .fl{width:64px;height:64px;font-size:14px}
+.phone .modal{padding:22px 18px;max-width:94%}
+.phone .mrow{flex-wrap:wrap}
+.phone .mrow>*{flex:1}
+.phone .h2{font-size:20px}
+.phone .scroll [style*="justify-content:space-between"]{flex-direction:column;align-items:stretch!important;gap:12px!important}
+.phone .scroll [style*="gap:40px"],.phone .scroll [style*="display:flex;border-radius:12px"]{flex-direction:column;gap:20px!important}
+.phone .scroll [style*="gap:40px"]{padding:16px!important}
+.phone .scroll [style*="width:420px"],.phone .scroll [style*="width:60%"]{width:100%!important;height:220px!important}
+.phone .scroll [style*="min-width:2"]{min-width:0!important;width:100%}
+.phone .scroll [style*="grid-template-columns:repeat(2"]{grid-template-columns:minmax(0,1fr)!important}
+.phone .scroll [style*="padding:48px"],.phone .scroll [style*="padding:56px"],.phone .scroll [style*="padding:40px"]{padding:24px 18px!important}
+.phone .scroll [style*="padding:28px 40px"],.phone .scroll [style*="padding:24px 40px"],.phone .scroll [style*="padding:28px 32px"]{padding:20px 16px!important}
+.phone .scroll [style*="font-size:34px"]{font-size:24px!important}
+.phone .scroll [style*="font-size:30px"]{font-size:22px!important}
+.phone .scroll [style*="font-size:28px"]{font-size:22px!important}
+.phone .scroll input[style*="width:210px"],.phone .scroll select[style*="width:150px"]{width:100%!important;margin-left:0!important}
+.phone .scroll [style*="margin-left:auto"]{margin-left:0!important;width:100%}
+.phone .scroll [style*="width:300px"]{width:100%!important}
+@media (max-width:600px){.mstage{padding:0}.browser.phone{width:100%;border:0;border-radius:0}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
 </head>
@@ -168,6 +223,8 @@ const FEEDBACK = {
   email: ''
 };
 let LAST_ROUTE = '/';
+/* 活動客服信箱（網路基因），填寫後「活動辦法 › 聯絡我們」可點擊寄信 */
+const CS_EMAIL = '';
 
 const CAT = { beef: '牛肉麵', douhua: '豆花', pine: '鳳梨酥' };
 const CATS = ['beef', 'douhua', 'pine'];
@@ -222,14 +279,15 @@ const EXC = [
   { g: '其他', id: 'E22', name: '找不到頁面／店家已下架', when: '網址錯誤，或店家退賽、被撤銷資格後舊連結仍被分享', how: '顯示 404 頁並提供回首頁；已下架店家的票數處理依主辦單位規則［待確認］', scr: '404 頁', p: { screen: 'msg', msgKey: 'notFound' } }
 ];
 
+const INIT_DEVICE = new URLSearchParams(location.search).get('device') === 'mobile' ? 'mob' : 'desk';
 function base() {
-  return { view: 'proto', panel: true, phase: 'nom', screen: 'home', loggedIn: false, pending: '', pendingNote: '', nomCount: 0, formErr: false, dupErr: false, loginErr: '', regErr: false, votes: { beef: 3, douhua: 3, pine: 3 }, voteLog: [], cat: 'all', storeIdx: 0, backTo: 'storeList', modal: '', qty: 1, searchEmpty: false, failNext: false, msgKey: '', menuOpen: false, copied: false, voted: false, lastQty: 1, lastStore: '', firstVote: false, exc: '', fbCopied: false, fbSent: false, fbSending: false, fbErr: '', fbDraft: null };
+  return { view: 'proto', panel: true, device: INIT_DEVICE, navOpen: false, phase: 'nom', screen: 'home', loggedIn: false, pending: '', pendingNote: '', nomCount: 0, formErr: false, dupErr: false, loginErr: '', regErr: false, votes: { beef: 3, douhua: 3, pine: 3 }, voteLog: [], cat: 'all', storeIdx: 0, backTo: 'storeList', modal: '', qty: 1, searchEmpty: false, failNext: false, msgKey: '', menuOpen: false, copied: false, voted: false, lastQty: 1, lastStore: '', firstVote: false, exc: '', fbCopied: false, fbSent: false, fbSending: false, fbErr: '', fbDraft: null };
 }
 let S = base();
 let lastScreenKey = '';
 
 function set(p) { Object.assign(S, p); render(); }
-function nav(screen, extra) { set(Object.assign({ screen, modal: '', menuOpen: false, copied: false, view: 'proto' }, extra || {})); }
+function nav(screen, extra) { set(Object.assign({ screen, modal: '', menuOpen: false, navOpen: false, copied: false, view: 'proto' }, extra || {})); }
 function msg(key, extra) { nav('msg', Object.assign({ msgKey: key }, extra || {})); }
 function loginSuccess() { set({ loggedIn: true, screen: S.pending || 'home', pending: '', pendingNote: '', loginErr: '', regErr: false, modal: '', menuOpen: false }); }
 function startNom() {
@@ -255,8 +313,10 @@ const A = {
   msg: v => msg(v), noop: () => {}, loginSuccess: loginSuccess,
   phase: v => set({ phase: v, screen: 'home', modal: '', menuOpen: false, exc: '', pending: '', pendingNote: '', view: 'proto' }),
   setLogin: v => set({ loggedIn: v === '1', menuOpen: false }),
-  exc: v => { const e = EXC.find(x => x.id === v); const keep = { view: 'proto', panel: S.panel, phase: S.phase }; S = Object.assign(base(), keep, e.p, { exc: v }); render(); },
-  reset: () => { const p = S.panel; S = base(); S.panel = p; render(); },
+  exc: v => { const e = EXC.find(x => x.id === v); const keep = { view: 'proto', panel: S.panel, phase: S.phase, device: S.device }; S = Object.assign(base(), keep, e.p, { exc: v }); render(); },
+  reset: () => { const p = S.panel, d = S.device; S = base(); S.panel = p; S.device = d; render(); },
+  device: v => { try { const u = new URL(location.href); if (v === 'mob') u.searchParams.set('device', 'mobile'); else u.searchParams.delete('device'); history.replaceState(null, '', u); } catch (e) {} set({ device: v, navOpen: false, menuOpen: false }); },
+  toggleNav: () => set({ navOpen: !S.navOpen, menuOpen: false }),
   view: v => set({ view: v, modal: '' }),
   togglePanel: () => set({ panel: !S.panel }),
   toggleMenu: () => set({ menuOpen: !S.menuOpen }),
@@ -302,7 +362,7 @@ const A = {
     S.fbDraft = { name, text };
     if (!text.trim()) return set({ fbErr: '請填寫意見內容' });
     set({ fbSending: true, fbErr: '' });
-    const body = new URLSearchParams({ name, text, screen: viewName(), route: LAST_ROUTE, phase: P[S.phase][0], login: S.loggedIn ? '已登入' : '未登入', exc: S.exc || '', ua: navigator.userAgent + '｜' + window.innerWidth + '×' + window.innerHeight });
+    const body = new URLSearchParams({ name, text, screen: viewName() + (S.device === 'mob' ? '（手機版）' : ''), route: LAST_ROUTE, phase: P[S.phase][0], login: S.loggedIn ? '已登入' : '未登入', exc: S.exc || '', ua: navigator.userAgent + '｜' + window.innerWidth + '×' + window.innerHeight });
     const ok = () => set({ fbSending: false, fbSent: true });
     const viaForm = () => {
       try {
@@ -332,7 +392,7 @@ const A = {
 function fbText() {
   const txt = (document.getElementById('fb-text') || {}).value || '';
   const who = (document.getElementById('fb-name') || {}).value || '';
-  return '畫面：' + viewName() + '\n活動時期：' + P[S.phase][0] + '\n例外情境：' + (S.exc || '—') + '\n回饋者：' + who + '\n\n意見：\n' + txt;
+  return '畫面：' + viewName() + (S.device === 'mob' ? '（手機版）' : '') + '\n活動時期：' + P[S.phase][0] + '\n例外情境：' + (S.exc || '—') + '\n回饋者：' + who + '\n\n意見：\n' + txt;
 }
 
 function b(label, a, v, cls, attrs) { return `<button class="${cls || 'btn'}" data-a="${a}" data-v="${v == null ? '' : v}" ${attrs || ''}>${label}</button>`; }
@@ -343,8 +403,12 @@ const USER = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke
 function panel() {
   const groups = [...new Set(EXC.map(e => e.g))];
   return `<aside class="panel ${S.panel ? '' : 'hide'}" aria-label="原型控制台">
-  <div><div class="ptitle">原型控制台</div><div class="psub">看見台灣・尋味指南｜網站原型審閱版（桌機）<br>右側網站可直接點擊操作；此處可切換活動時期、登入狀態與例外情境。</div></div>
+  <div><div class="ptitle">原型控制台</div><div class="psub">看見台灣・尋味指南｜網站原型審閱版（${S.device === 'mob' ? '手機' : '桌機'}）<br>右側網站可直接點擊操作；此處可切換活動時期、登入狀態與例外情境。</div></div>
   <div class="pinfo">目前畫面：<b>${viewName()}</b><br>活動時期：${P[S.phase][0]}（${P[S.phase][1]}）｜${S.loggedIn ? '已登入' : '未登入'}</div>
+  <div><div class="plabel">裝置</div><div class="pgrid">
+  <button class="pbtn ${S.device === 'desk' ? 'on' : ''}" data-a="device" data-v="desk"><b>桌機版</b></button>
+  <button class="pbtn ${S.device === 'mob' ? 'on' : ''}" data-a="device" data-v="mob"><b>手機版</b></button>
+  </div></div>
   <div><div class="plabel">① 活動時期（切換後回到首頁）</div><div class="pgrid">
   ${Object.keys(P).map(k => `<button class="pbtn ${S.phase === k ? 'on' : ''}" data-a="phase" data-v="${k}"><b>${P[k][0]}</b><br>${P[k][1]}</button>`).join('')}
   </div></div>
@@ -378,6 +442,10 @@ function header() {
   const acct = S.loggedIn
     ? `<div style="position:relative">${b(USER + '[會員名稱] ▾', 'toggleMenu', '', 'navb', 'aria-expanded="' + S.menuOpen + '"')}${iff(S.menuOpen, `<div class="menu">${b('活動紀錄', 'go', 'records', 'navb')}${b('登出', 'logout', '', 'navb')}</div>`)}</div>`
     : b(USER + '註冊／登入', 'go', 'login', 'navb');
+  if (S.device === 'mob') {
+    const acctM = S.loggedIn ? b(USER + '活動紀錄', 'go', 'records', 'navb') + b('登出', 'logout', '', 'navb') : b(USER + '註冊／登入', 'go', 'login', 'navb');
+    return `<header class="header mhead">${b('[看見台灣基金會 Logo]', 'go', 'home', 'navb', 'style="font-weight:700;font-size:15px"')}<span style="flex:1"></span><div style="font-size:13px;font-weight:600">繁中｜EN｜JP</div>${b(S.navOpen ? '✕' : '☰', 'toggleNav', '', 'navb', 'aria-label="選單" aria-expanded="' + S.navOpen + '" style="font-size:22px;width:44px;justify-content:center"')}${iff(S.navOpen, `<nav class="mnav" aria-label="主選單">${items}<hr>${acctM}</nav>`)}</header>`;
+  }
   return `<header class="header">${b('[看見台灣基金會 Logo]', 'go', 'home', 'navb', 'style="font-weight:700;font-size:16px"')}<nav aria-label="主選單">${items}</nav>${acct}<div style="font-size:14px;font-weight:600">繁中｜EN｜JP</div></header>`;
 }
 function footer() {
@@ -397,6 +465,7 @@ function home() {
   let h = `<section class="hero"><div class="wrap"><div class="anno">原型說明：目前為「${P[ph][0]}」，首頁文字、按鈕與導覽列會依活動時期切換</div>
   <div class="heroRow"><div><h1 class="ht">看見台灣｜尋味指南</h1><p class="hs">${H.sub}</p><p class="hb">${H.body}</p><p class="hp">${H.period}</p></div>${b(H.cta[0] + '　→', H.cta[1], H.cta[2], 'btn', 'style="min-width:240px"')}</div></div></section>`;
   if (H.banner) h += `<div class="banner"><div class="wrap"><span>${H.banner}</span>${H.bcta ? b(H.bcta[0] + ' →', H.bcta[1], H.bcta[2], 'btn2 btnS') : ''}</div></div>`;
+  if (['pre', 'nom', 'vote'].includes(ph)) h += `<div class="sec" style="padding-bottom:0"><h2 class="h2">預熱影片</h2><div class="g3">${[1, 2, 3].map(n => `<div class="ph vid">▶　[預熱影片 ${n}]<br>（待上稿）</div>`).join('')}</div><div class="anno" style="margin-top:8px">原型說明：三支預熱影片，上稿後嵌入 YouTube 播放器</div></div>`;
   if (ph === 'result') {
     h += `<div class="sec"><h2 style="text-align:center;font-size:34px;margin:0 0 28px">榮耀時刻</h2>
     <div style="display:flex;border-radius:12px;overflow:hidden"><div class="ph" style="width:60%;height:360px;border-radius:0">頒獎典禮花絮影片／照片輪播（典禮後上稿）</div>
@@ -419,18 +488,18 @@ function home() {
   return h;
 }
 function rulesPage() {
-  const tl = [['全民提名', '11/02 – 11/25'], ['資格審查', '11/26 – 12/06'], ['全民投票', '12/07 – 01/15'], ['提名期中獎名單', '12/10'], ['投票期中獎名單', '［01/30 待確認］'], ['精選店家揭曉', '02/25'], ['頒獎典禮', '03/10']];
-  return `<section class="phead"><h1>活動辦法</h1></section><div class="sec"><h2 class="h2">活動時程</h2><div class="g7">${tl.map(t => `<div class="card" style="padding:16px;text-align:center"><b>${t[0]}</b><div style="font-size:13px">${t[1]}</div></div>`).join('')}</div>
-  <div style="display:flex;gap:10px;margin-top:32px;flex-wrap:wrap"><span class="chip">辦法及規則</span><span class="chip">三大品項</span><span class="chip">抽獎辦法</span><span class="chip">常見問題</span><span class="chip">資料授權條款</span></div>
+  const tl = [['全民提名', '11/02 – 11/25'], ['資格審查', '11/26 – 12/06'], ['全民投票', '12/07 – 01/15'], ['提名期中獎名單', '12/10'], ['投票期中獎名單', '［01/30 待確認］'], ['精選店家揭曉', '02/25']];
+  return `<section class="phead"><h1>活動辦法</h1></section><div class="sec"><h2 class="h2">活動時程</h2><div class="g6">${tl.map(t => `<div class="card" style="padding:16px;text-align:center"><b>${t[0]}</b><div style="font-size:13px">${t[1]}</div></div>`).join('')}</div>
+  <div style="display:flex;gap:10px;margin-top:32px;flex-wrap:wrap"><span class="chip">辦法及規則</span><span class="chip">三大品項</span><span class="chip">抽獎辦法</span><span class="chip">抽獎條件 Q&amp;A</span><span class="chip">常見問題</span><span class="chip">資料授權條款</span><span class="chip">聯絡我們</span></div>
   <div class="anno" style="margin-top:8px">原型說明：點擊上方標籤可捲動至對應段落，各段內文引用規章原文；常見問題以展開收合呈現</div>
-  <div class="stack" style="margin-top:24px"><div class="rules"><b>辦法及規則</b>［規章原文］</div><div class="rules"><b>三大品項</b>［規章原文］</div><div class="rules"><b>抽獎辦法</b>［規章原文］</div><div class="rules"><b>常見問題</b>▸ 提名有限制次數嗎？<br>▸ 可以重複提名同一家店家嗎？<br>▸ ［其餘題目依規章原文］</div><div class="rules"><b>資料授權條款</b>［規章原文］</div></div></div>`;
+  <div class="stack" style="margin-top:24px"><div class="rules"><b>辦法及規則</b>［規章原文］</div><div class="rules"><b>三大品項</b>［規章原文］</div><div class="rules"><b>抽獎辦法</b>［規章原文］<div class="lsub"><b>抽獎資格</b>［規章原文］<b>開獎方式</b>［規章原文］<b>中獎通知與領獎流程</b>［規章原文：通知方式、回傳文件與期限］<b>獎項發放</b>［規章原文］<b>稅務規定</b>［規章原文］<b>其他</b>［規章原文］</div></div><div class="rules"><b>抽獎條件 Q&amp;A</b>▸ ［題目待提供］<br>▸ ［題目待提供］<br>▸ ［題目待提供］<div class="anno" style="margin-top:8px">原型說明：題目與答案依活動辦法定稿後更新，以展開收合呈現</div></div><div class="rules"><b>常見問題</b>▸ 提名有限制次數嗎？<br>▸ 可以重複提名同一家店家嗎？<br>▸ ［其餘題目依規章原文］</div><div class="rules"><b>資料授權條款</b>［規章原文］</div><div class="rules"><b>聯絡我們</b>對活動有任何問題，歡迎來信活動客服信箱，我們將儘速回覆您。<br>客服信箱：${CS_EMAIL ? `<a class="linkb" href="mailto:${CS_EMAIL}?subject=${encodeURIComponent('【看見台灣・尋味指南】活動詢問')}">${CS_EMAIL}</a>` : '<span class="linkb" style="cursor:default">［網路基因客服信箱］</span>'}<div class="anno" style="margin-top:8px">原型說明：點擊信箱即開啟 Email 寄信</div></div></div></div>`;
 }
 function termsPage() {
   return `<section class="phead"><h1>服務條款與隱私權政策</h1></section><div class="sec stack"><div class="rules"><b>服務條款</b>［內容待基金會提供］</div><div class="rules"><b>隱私權政策</b>［內容待基金會提供］</div></div>`;
 }
 function nomRules() {
   return `<section class="phead"><h1>我要提名</h1><p>推薦前，請詳閱提名規則，以保障您的參加權益。</p></section><div class="sec"><h2 style="text-align:center;font-size:30px;margin:0 0 24px">提名規則</h2>
-  <div class="rules"><b>【活動時間】</b>提名期間：2026 年 11 月 2 日 00:00 至 11 月 25 日 23:59 止（主辦單位保留時程變更之權利）<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士及海外旅客，熱愛台灣在地美食者均可參與提名。未成年人參加時，須事先取得法定代理人同意。推薦之店家須設址於台灣本島或外島（含澎、金、馬）。<b>【參加步驟】</b>1. 登入會員　2. 選擇推薦品項　3. 填寫店家資料與推薦理由<b>【提名規範與抽獎】</b>每位會員最多可提名 10 家店家；每成功提名 1 家，可獲得 1 次提名期抽獎機會（最多 5 次）。<b>【店家資格審查】</b>受提名店家須具備實體營業場所、營業滿 1 年以上，且近 1 年無重大食安或違規紀錄。通過資格審查並完成授權之店家，將全數進入全民投票。</div>
+  <div class="rules"><b>【活動時間】</b>提名期間：2026 年 11 月 2 日 00:00 至 11 月 25 日 23:59 止（主辦單位保留時程變更之權利）<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士，熱愛台灣在地美食者均可參與提名。未成年人參加時，須事先取得法定代理人同意。推薦之店家須設址於台灣本島或外島（含澎、金、馬）。<b>【參加步驟】</b>1. 登入會員　2. 選擇推薦品項　3. 填寫店家資料與推薦理由<b>【提名規範與抽獎】</b>每位會員最多可提名 10 家店家；每成功提名 1 家，可獲得 1 次提名期抽獎機會（最多 5 次）。<b>【店家資格審查】</b>受提名店家須具備實體營業場所、營業滿 1 年以上，且近 1 年無重大食安或違規紀錄。通過資格審查並完成授權之店家，將全數進入全民投票。</div>
   <p style="text-align:center;font-size:15px;margin-top:28px">點擊「開始提名」即表示您已閱讀並同意本活動${b('資料授權條款', 'go', 'rules', 'linkb')}</p>
   <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:12px">${b('開始提名 →', 'startNom', '', 'btn', 'style="min-width:240px"')}<div class="anno" style="text-align:center">原型說明：未登入 → 登入頁（完成後自動回到表單）；已提名滿 10 家 → 已達上限頁；提名期外 → 已截止頁</div></div></div>`;
 }
@@ -453,7 +522,7 @@ function nomForm() {
   <div class="fg"><label class="lbl" for="f-city">所在縣市 <span class="req">*</span></label><select id="f-city" class="inp"><option>請選擇縣市</option><option>臺北市</option><option>新北市</option><option>臺中市</option><option>臺南市</option><option>高雄市</option><option>澎湖縣</option><option>金門縣</option><option>連江縣</option></select></div></div>
   <div class="fg"><label class="lbl" for="f-addr">店家地址 <span class="req">*</span></label><input id="f-addr" class="inp ${e}" type="text" placeholder="請填寫實體營業地址">${et('請填寫店家地址')}</div>
   <div class="fg"><span class="lbl">推薦理由（可複選）<span class="req">*</span></span><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px">
-  ${['【經典風味】美味道地、獨門口感', '【嚴選食材】真材實料、品質堅持', '【職人傳承】老字號／在地特色故事', '【海外友善】環境整潔、對外籍旅客親切', '【造訪體驗】交通方便、內用或購買體驗佳', '【在地口碑】在地人真心推薦、超人氣口碑店', '【其他】自行輸入'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}
+  ${['【經典口味】美味道地、獨門口感', '【嚴選食材】真材實料、品質堅持', '【職人傳承】老字號／在地特色故事', '【海外友善】環境整潔、對外籍旅客親切', '【造訪體驗】交通方便、內用或購買體驗佳', '【創新風味】創意吃法、口味推陳出新', '【其他】自行輸入'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}
   </div>${et('請至少勾選一項推薦理由')}<textarea class="inp" style="margin-top:12px" placeholder="請簡單描述推薦理由（100 字以內）" aria-label="其他推薦理由"></textarea></div>
   <label class="chk"><input type="checkbox">我已閱讀並同意${b('服務條款', 'go', 'terms', 'linkb')}、${b('隱私權政策', 'go', 'terms', 'linkb')}及資料授權條款</label>${et('請勾選同意條款')}
   <div class="ph" style="width:300px;height:76px;background:#fafafa;border:1px solid #d3d3d3">[reCAPTCHA]</div>
@@ -489,7 +558,7 @@ function records() {
 }
 function voteRules() {
   return `<section class="phead"><h1>我要投票</h1><p>投票前，請詳閱投票規則，以保障您的參加權益。</p></section><div class="sec"><h2 style="text-align:center;font-size:30px;margin:0 0 24px">投票規則</h2>
-  <div class="rules"><b>【活動時間】</b>投票期間：2026 年 12 月 7 日 00:00 至 2027 年 1 月 15 日 23:59 止<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士及海外旅客均可參與投票。未成年人參加時，須事先取得法定代理人同意。<b>【投票規範】</b>每個會員帳號於投票期間，在三大品項中各限投 3 票（每人最多共 9 票），同一家店家限投 1 票。投票送出後無法修改。<b>【投票抽獎】</b>完成任一品項投票，即可獲得 1 次投票期抽獎機會。<b>【榜單說明】</b>三大品項各依有效票數選出前 10 名，共 30 家年度精選店家。主辦單位對外不公布具體得票數與名次，得獎名單依「行政縣市順序＋店名筆畫」排列。</div>
+  <div class="rules"><b>【活動時間】</b>投票期間：2026 年 12 月 7 日 00:00 至 2027 年 1 月 15 日 23:59 止<b>【參加資格】</b>凡中華民國國民，或持有有效「在台居留證」之外籍人士均可參與投票。未成年人參加時，須事先取得法定代理人同意。<b>【投票規範】</b>每個會員帳號於投票期間，在三大品項中各限投 3 票（每人最多共 9 票），同一家店家限投 1 票。投票送出後無法修改。<b>【投票抽獎】</b>完成任一品項投票，即可獲得 1 次投票期抽獎機會。<b>【榜單說明】</b>三大品項各依有效票數選出前 10 名，共 30 家年度精選店家。主辦單位對外不公布具體得票數與名次，得獎名單依「行政縣市順序＋店名筆畫」排列。</div>
   <p style="text-align:center;font-size:15px;margin-top:28px">點擊「開始投票」即表示您已閱讀並同意${b('本活動相關規範', 'go', 'rules', 'linkb')}</p><div style="display:flex;justify-content:center;margin-top:12px">${b('開始投票 →', 'storeList', '', 'btn', 'style="min-width:240px"')}</div></div>`;
 }
 function storeList() {
@@ -501,7 +570,7 @@ function storeList() {
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><b>依品項：</b>${cats}<select class="inp" style="width:150px;margin-left:8px" aria-label="依縣市篩選"><option>全部縣市</option><option>臺北市</option><option>新北市</option><option>臺中市</option></select><div style="display:flex;gap:8px;margin-left:auto"><input class="inp" style="width:210px" type="search" placeholder="搜尋店家名稱" aria-label="搜尋店家名稱">${b('搜尋', 'doSearch', '', 'btn btnS')}</div></div>
   <div class="anno">原型說明：店家依店名筆畫排序（英、日文介面排序方式待確認），前台不顯示名次與票數</div>
   ${S.searchEmpty ? `<div style="background:#f5f5f5;border-radius:12px;padding:56px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><div style="font-size:20px;font-weight:700">找不到符合的店家</div><div style="color:#444;line-height:1.7">請確認店家名稱是否正確，或改用品項、縣市篩選。<br>未通過資格審查的店家不會出現在投票名單中。</div>${b('清除搜尋', 'clearSearch', '', 'btn2 btnS')}</div>`
-    : `<div class="g4">${cards}</div><div style="display:flex;justify-content:center;gap:16px;margin-top:8px">‹　<b>1</b>　2　3　…　›</div>`}</div>`;
+    : `<div class="g4 storeGrid">${cards}</div><div style="display:flex;justify-content:center;gap:16px;margin-top:8px">‹　<b>1</b>　2　3　…　›</div>`}</div>`;
 }
 function storeDetail() {
   const st = curStore(), rem = S.votes[st.cat], qty = Math.max(1, Math.min(S.qty, rem || 1));
@@ -517,7 +586,7 @@ function storeDetail() {
   const back = S.backTo === 'winners' ? '返回得獎名單' : '返回店家列表';
   return `<section class="phead" style="padding:32px 40px"><h1>${S.backTo === 'winners' ? '得獎名單' : '我要投票'}</h1></section><div class="sec stack" style="gap:20px">
   <div style="display:flex;justify-content:space-between">${b('← ' + back, 'backFromStore', '', 'linkb')}<div style="display:flex;gap:8px">${b('‹ 上一家', 'prevStore', '', 'btn2 btnS')}${b('下一家 ›', 'nextStore', '', 'btn2 btnS')}</div></div>
-  <div style="display:flex;gap:40px;border:1px solid #ddd;border-radius:12px;padding:32px"><div class="ph" style="width:420px;height:300px;flex-shrink:0">店家照片（可左右輪播）</div><div class="stack" style="gap:12px;flex:1;font-size:15px"><span class="tag">${st.catLabel}</span><div style="font-size:28px;font-weight:700">${st.name}</div><div>所在縣市：${st.county}</div><div>地址：［店家地址］　<button class="linkb">查看地圖</button></div><div>營業時間：［營業時間］</div><p style="margin:0;line-height:1.8">［店家介紹］</p><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-weight:600">推薦亮點：</span><span class="chip">經典風味</span><span class="chip">職人傳承</span><span class="chip">海外友善</span></div>${b('分享這家店', 'openShare', '', 'btn2 btnS', 'style="align-self:flex-start"')}</div></div>
+  <div style="display:flex;gap:40px;border:1px solid #ddd;border-radius:12px;padding:32px"><div class="ph" style="width:420px;height:300px;flex-shrink:0">店家照片（可左右輪播）</div><div class="stack" style="gap:12px;flex:1;font-size:15px"><span class="tag">${st.catLabel}</span><div style="font-size:28px;font-weight:700">${st.name}</div><div>所在縣市：${st.county}</div><div>地址：［店家地址］　<button class="linkb">查看地圖</button></div><div>營業時間：［營業時間］</div><p style="margin:0;line-height:1.8">［店家介紹］</p><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-weight:600">推薦亮點：</span><span class="chip">經典口味</span><span class="chip">職人傳承</span><span class="chip">海外友善</span></div>${b('分享這家店', 'openShare', '', 'btn2 btnS', 'style="align-self:flex-start"')}</div></div>
   <div class="card" style="padding:28px 32px">${vp}</div></div>`;
 }
 function lottery() {
@@ -584,12 +653,12 @@ function modal() {
     voteDone: `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>投票成功！感謝您的支持</h3><p style="margin:0;line-height:1.8">您已投給「${S.lastStore}」1 票，${st.catLabel}還剩 ${rem} 票。</p>${iff(S.firstVote, '<div class="chip" style="background:#fff6d6">恭喜您獲得投票期抽獎資格！</div>')}<div style="display:flex;gap:12px">${b('繼續逛店家', 'afterVote', '')}${b('分享這家店', 'openShare', '', 'btn2')}</div></div>`,
     voteFail: `<h3>投票未完成</h3><p style="margin:0;line-height:1.8">網路連線不穩定，這次投票沒有送出，票數也不會扣除。請確認網路連線後再試一次。</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('重新送出', 'retryVote', '')}</div>`,
     share: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>分享給親友</h3>${x}</div><div class="g3" style="gap:12px"><button class="btn2">Facebook</button><button class="btn2">LINE</button>${b('複製連結', 'copyLink', '', 'btn2')}</div>${iff(S.copied, '<div class="infobox" style="text-align:center">已複製連結</div>')}<div class="anno">原型說明：從店家頁分享時帶該店專屬網址與分享圖；從首頁分享則帶活動首頁</div>`,
-    edit: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>編輯提名內容</h3>${x}</div><div class="fgrid"><div class="fg"><label class="lbl" for="e-cat">推薦品項</label><select id="e-cat" class="inp"><option>牛肉麵（正餐）</option><option>豆花（甜點）</option><option>鳳梨酥（伴手禮）</option></select></div><div class="fg"><label class="lbl" for="e-name">店家名稱</label><input id="e-name" class="inp" placeholder="［原店家名稱］"></div><div class="fg"><label class="lbl" for="e-city">所在縣市</label><select id="e-city" class="inp"><option>［原縣市］</option></select></div><div class="fg"><label class="lbl" for="e-addr">店家地址</label><input id="e-addr" class="inp" placeholder="［原地址］"></div></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;font-size:14px">${['經典風味', '嚴選食材', '職人傳承', '海外友善', '造訪體驗', '在地口碑'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}</div><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('儲存修改', 'closeModal', '')}</div>`,
+    edit: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>編輯提名內容</h3>${x}</div><div class="fgrid"><div class="fg"><label class="lbl" for="e-cat">推薦品項</label><select id="e-cat" class="inp"><option>牛肉麵（正餐）</option><option>豆花（甜點）</option><option>鳳梨酥（伴手禮）</option></select></div><div class="fg"><label class="lbl" for="e-name">店家名稱</label><input id="e-name" class="inp" placeholder="［原店家名稱］"></div><div class="fg"><label class="lbl" for="e-city">所在縣市</label><select id="e-city" class="inp"><option>［原縣市］</option></select></div><div class="fg"><label class="lbl" for="e-addr">店家地址</label><input id="e-addr" class="inp" placeholder="［原地址］"></div></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;font-size:14px">${['經典口味', '嚴選食材', '職人傳承', '海外友善', '造訪體驗', '創新風味'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}</div><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('儲存修改', 'closeModal', '')}</div>`,
     editLocked: `<h3>提名內容已無法修改</h3><p style="margin:0;line-height:1.8">提名期已於 2026/11/25 23:59 截止，您的提名已進入資格審查。</p><div class="mrow">${b('我知道了', 'closeModal', '')}</div>`,
     timeout: `<h3>登入時間已逾時</h3><p style="margin:0;line-height:1.8">為保護您的帳號安全，閒置超過 30 分鐘將自動登出。您填寫的內容已暫存，重新登入後即可繼續填寫。</p><div class="mrow">${b('重新登入', 'relogin', '')}</div>`,
     feedback: S.fbSent
       ? `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>已送出，感謝您的意見！</h3><p style="margin:0;line-height:1.8">我們會盡快整理並回覆您。</p><div style="display:flex;gap:12px">${b('繼續提供意見', 'fbAgain', '', 'btn2')}${b('關閉', 'closeModal', '')}</div></div>`
-      : `<div style="display:flex;justify-content:space-between;align-items:center"><h3>對此畫面提供意見</h3>${x}</div><div class="infobox">畫面：<b>${viewName()}</b>｜活動時期：${P[S.phase][0]}｜${S.loggedIn ? '已登入' : '未登入'}${S.exc ? '｜例外情境：' + S.exc : ''}</div><div class="fg"><label class="lbl" for="fb-name">您的姓名</label><input id="fb-name" class="inp" placeholder="方便我們回覆您"></div><div class="fg"><label class="lbl" for="fb-text">意見內容</label><textarea id="fb-text" class="inp" style="height:140px" placeholder="例：這裡的按鈕文字想改成…；這一步希望加入…"></textarea>${iff(S.fbErr, `<div class="errt">${S.fbErr}</div>`)}</div><div class="mrow">${b('複製內容', 'fbCopy', '', 'btn2')}${FEEDBACK.sheetEndpoint ? b(S.fbSending ? '送出中…' : '送出意見', 'fbSend', '', 'btn', S.fbSending ? 'disabled' : '') : b('以 Email 寄出', 'fbMail', '')}</div>${iff(S.fbCopied, '<div class="infobox" style="text-align:center">已複製，可貼到 Email 或 LINE 傳給我們</div>')}`
+      : `<div style="display:flex;justify-content:space-between;align-items:center"><h3>對此畫面提供意見</h3>${x}</div><div class="infobox">畫面：<b>${viewName()}</b>${S.device === 'mob' ? '（手機版）' : ''}｜活動時期：${P[S.phase][0]}｜${S.loggedIn ? '已登入' : '未登入'}${S.exc ? '｜例外情境：' + S.exc : ''}</div><div class="fg"><label class="lbl" for="fb-name">您的姓名</label><input id="fb-name" class="inp" placeholder="方便我們回覆您"></div><div class="fg"><label class="lbl" for="fb-text">意見內容</label><textarea id="fb-text" class="inp" style="height:140px" placeholder="例：這裡的按鈕文字想改成…；這一步希望加入…"></textarea>${iff(S.fbErr, `<div class="errt">${S.fbErr}</div>`)}</div><div class="mrow">${b('複製內容', 'fbCopy', '', 'btn2')}${FEEDBACK.sheetEndpoint ? b(S.fbSending ? '送出中…' : '送出意見', 'fbSend', '', 'btn', S.fbSending ? 'disabled' : '') : b('以 Email 寄出', 'fbMail', '')}</div>${iff(S.fbCopied, '<div class="infobox" style="text-align:center">已複製，可貼到 Email 或 LINE 傳給我們</div>')}`
   };
   return `<div class="ov" role="dialog" aria-modal="true"><div class="modal" ${S.modal === 'edit' ? 'style="width:620px"' : ''}>${M[S.modal] || ''}</div></div>`;
 }
@@ -643,10 +712,10 @@ function render() {
   const sc = document.querySelector('.scroll');
   const keepTop = sc && key === lastScreenKey ? sc.scrollTop : 0;
   document.getElementById('app').innerHTML = panel() + `<div class="main">
-  <div class="narrowWarn">建議以電腦瀏覽器（寬度 1280px 以上）開啟此原型。</div>
+  ${S.device === 'mob' ? '' : `<div class="narrowWarn">桌機版建議以電腦瀏覽器（寬度 1280px 以上）開啟。用手機看請改用${b('手機版', 'device', 'mob', 'linkb')}。</div>`}
   <div class="topbar">${b(S.panel ? '隱藏控制台' : '顯示控制台', 'togglePanel', '', 'tbtn')}
   <span class="sp"></span><button class="fbtab" data-a="feedback">對此畫面提供意見</button></div>
-  <div class="stage"><div class="browser">${S.view === 'proto' ? `<div class="urlbar"><i></i><i></i><i></i><span>[活動網址]${route}</span></div>` : ''}<div class="scroll">${inner}</div>${floats}${S.view === 'proto' || S.modal === 'feedback' ? modal() : ''}</div></div></div>`;
+  <div class="stage ${S.device === 'mob' ? 'mstage' : ''}"><div class="browser ${S.device === 'mob' && S.view === 'proto' ? 'phone' : ''}">${S.view === 'proto' ? `<div class="urlbar"><i></i><i></i><i></i><span>[活動網址]${route}</span></div>` : ''}<div class="scroll">${inner}</div>${floats}${S.view === 'proto' || S.modal === 'feedback' ? modal() : ''}</div></div></div>`;
   const ns = document.querySelector('.scroll');
   if (ns) ns.scrollTop = keepTop;
   lastScreenKey = key;
