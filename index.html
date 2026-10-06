@@ -462,11 +462,12 @@ function home() {
     count: { sub: '感謝您的每一票', body: '投票已經結束，我們正在統計有效票數。2 月 25 日，30 家年度精選店家即將揭曉，敬請期待！', period: '精選店家揭曉｜2027/02/25', cta: ['查看中獎名單', 'go', 'lottery'], banner: '投票期中獎名單已公布', bcta: ['查看中獎名單', 'go', 'lottery'] },
     result: { sub: '首屆「尋味指南」30 家精選店家揭曉', body: '由全民與來台旅客共同選出的牛肉麵、豆花、鳳梨酥代表店家，將推薦給來台灣的外國旅客，讓更多人循著這份指南，嚐到最道地的台灣味。', period: '頒獎典禮｜2027/03/10　［典禮地點］', cta: ['查看得獎名單', 'go', 'winners'] }
   }[ph];
+  const hasVid = ['pre', 'nom', 'vote'].includes(ph);
+  const media = n => hasVid ? `<div class="ph vid" style="border-radius:0">▶　[${n}預熱影片]<br>（待上稿）</div>` : `<div class="ph" style="height:160px;border-radius:0">[${n}情境照]</div>`;
   const step1 = S.loggedIn ? '<span class="chip">✓ 已登入</span>' : b('馬上註冊', 'go', 'register', 'btn btnS');
   let h = `<section class="hero"><div class="wrap"><div class="anno">原型說明：目前為「${P[ph][0]}」，首頁文字、按鈕與導覽列會依活動時期切換</div>
   <div class="heroRow"><div><h1 class="ht">看見台灣｜尋味指南</h1><p class="hs">${H.sub}</p><p class="hb">${H.body}</p><p class="hp">${H.period}</p></div>${b(H.cta[0] + '　→', H.cta[1], H.cta[2], 'btn', 'style="min-width:240px"')}</div></div></section>`;
   if (H.banner) h += `<div class="banner"><div class="wrap"><span>${H.banner}</span>${H.bcta ? b(H.bcta[0] + ' →', H.bcta[1], H.bcta[2], 'btn2 btnS') : ''}</div></div>`;
-  if (['pre', 'nom', 'vote'].includes(ph)) h += `<div class="sec" style="padding-bottom:0"><h2 class="h2">預熱影片</h2><div class="g3">${[1, 2, 3].map(n => `<div class="ph vid">▶　[預熱影片 ${n}]<br>（待上稿）</div>`).join('')}</div><div class="anno" style="margin-top:8px">原型說明：三支預熱影片，上稿後嵌入 YouTube 播放器</div></div>`;
   if (ph === 'result') {
     h += `<div class="sec"><h2 style="text-align:center;font-size:34px;margin:0 0 28px">榮耀時刻</h2>
     <div style="display:flex;border-radius:12px;overflow:hidden"><div class="ph" style="width:60%;height:360px;border-radius:0">頒獎典禮花絮影片／照片輪播（典禮後上稿）</div>
@@ -475,10 +476,10 @@ function home() {
   }
   h += `<div class="sec"><h2 class="h2">台灣味，由您來推薦</h2><p style="margin:0;font-size:16px;line-height:1.9;max-width:780px">來到台灣的旅客，最常問的一句話是「哪裡有好吃的？」答案往往藏在在地人的記憶裡：放學後常去的那家麵店、夏天排隊也要吃的豆花攤、每次出國都會帶上的那盒伴手禮。</p><p style="margin:12px 0 0;font-size:16px;line-height:1.9;max-width:780px">首屆「看見台灣・尋味指南」以牛肉麵、豆花、鳳梨酥為主題，邀請您推薦心中最道地的店家。經過資格審查與全民投票，每個品項選出 10 家、共 30 家年度精選店家，推薦給來台灣的外國旅客。</p>
   <div class="g3" style="margin-top:32px">
-  <div class="scard"><div class="ph" style="height:160px;border-radius:0">[牛肉麵情境照]</div><div class="b"><span class="tag">正餐</span><div style="font-size:20px;font-weight:700">牛肉麵</div><div style="font-size:15px;line-height:1.7">紅燒的濃郁、清燉的甘甜，一碗麵裡有職人的功夫，也有台灣人的日常。</div></div></div>
-  <div class="scard"><div class="ph" style="height:160px;border-radius:0">[豆花情境照]</div><div class="b"><span class="tag">甜點</span><div style="font-size:20px;font-weight:700">豆花</div><div style="font-size:15px;line-height:1.7">綿密滑嫩，配上花生、粉圓或芋圓。冬天暖胃、夏天消暑，是台灣人從小吃到大的甜滋味。</div></div></div>
-  <div class="scard"><div class="ph" style="height:160px;border-radius:0">[鳳梨酥情境照]</div><div class="b"><span class="tag">伴手禮</span><div style="font-size:20px;font-weight:700">鳳梨酥</div><div style="font-size:15px;line-height:1.7">酥鬆的外皮、酸甜的內餡，還有「旺來」的好兆頭，是旅客離開台灣前一定要帶走的一盒。</div></div></div>
-  </div>`;
+  <div class="scard">${media('牛肉麵')}<div class="b"><span class="tag">正餐</span><div style="font-size:20px;font-weight:700">牛肉麵</div><div style="font-size:15px;line-height:1.7">紅燒的濃郁、清燉的甘甜，一碗麵裡有職人的功夫，也有台灣人的日常。</div></div></div>
+  <div class="scard">${media('豆花')}<div class="b"><span class="tag">甜點</span><div style="font-size:20px;font-weight:700">豆花</div><div style="font-size:15px;line-height:1.7">綿密滑嫩，配上花生、粉圓或芋圓。冬天暖胃、夏天消暑，是台灣人從小吃到大的甜滋味。</div></div></div>
+  <div class="scard">${media('鳳梨酥')}<div class="b"><span class="tag">伴手禮</span><div style="font-size:20px;font-weight:700">鳳梨酥</div><div style="font-size:15px;line-height:1.7">酥鬆的外皮、酸甜的內餡，還有「旺來」的好兆頭，是旅客離開台灣前一定要帶走的一盒。</div></div></div>
+  </div>${iff(hasVid, '<div class="anno" style="margin-top:8px">原型說明：三大品項各一支預熱影片，上稿後嵌入 YouTube 播放器；審查期、計票期改顯示情境照</div>')}`;
   if (ph === 'pre') h += `<div class="card" style="margin-top:40px;text-align:center"><div style="font-size:22px;font-weight:700">11 月 2 日，開放提名</div><div style="margin-top:10px;color:#444">距離開放提名還有 [XX] 天</div></div>`;
   if (ph === 'review') h += `<div style="margin-top:48px"><h2 class="h2">活動進度</h2><div class="g3"><div class="card" style="padding:24px"><b>✓ 全民提名</b><div style="font-size:14px;color:#444;margin-top:6px">已截止，感謝您的參與</div></div><div class="card dark" style="padding:24px"><b>● 資格審查中</b><div style="font-size:14px;margin-top:6px">確認店家資料並取得授權</div></div><div class="card" style="padding:24px"><b>全民投票</b><div style="font-size:14px;color:#444;margin-top:6px">12 月 7 日開放</div></div></div><p style="font-size:15px;margin-top:16px">想知道您提名的店家是否通過審查嗎？請至「${b('活動紀錄', 'go', 'records', 'linkb')}」查看。</p></div>`;
   if (ph === 'count') h += `<div style="margin-top:48px"><h2 class="h2">活動進度</h2><div class="g3"><div class="card" style="padding:24px"><b>✓ 全民投票</b><div style="font-size:14px;color:#444;margin-top:6px">已截止，感謝您的參與</div></div><div class="card dark" style="padding:24px"><b>● 計票中</b><div style="font-size:14px;margin-top:6px">統計有效票數</div></div><div class="card" style="padding:24px"><b>精選店家揭曉</b><div style="font-size:14px;color:#444;margin-top:6px">2 月 25 日</div></div></div></div>`;
