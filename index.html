@@ -241,7 +241,7 @@ const ROUTE = { home: '/', rules: '/rules', terms: '/terms', nomRules: '/nominat
 
 const MSG = {
   nomClosed: { icon: 'warn', title: '提名活動已截止', body: '提名期間為 2026/11/02 至 11/25，感謝您的熱情參與！\n通過資格審查的店家，將於 12 月 7 日開放全民投票。', b1: ['回首頁', 'go', 'home'], b2: ['查看活動辦法', 'go', 'rules'] },
-  nomFull: { icon: 'warn', title: '您已提名 10 家店家', body: '每個帳號最多可提名 10 家店家，感謝您的熱情推薦！\n如需修改提名內容，請至「活動紀錄」。', b1: ['前往活動紀錄', 'go', 'records'], b2: ['回首頁', 'go', 'home'] },
+  nomFull: { icon: 'warn', title: '您已提名 10 家店家', body: '每個帳號最多可提名 10 家店家，感謝您的熱情推薦！\n如需更正提名內容，請至「活動紀錄」刪除該筆提名後重新提名。', b1: ['前往活動紀錄', 'go', 'records'], b2: ['回首頁', 'go', 'home'] },
   voteNotOpen: { icon: 'warn', title: '全民投票即將開始', body: '全民投票將於 2026/12/07 00:00 開放，敬請期待！', b1: ['回首頁', 'go', 'home'] },
   voteClosed: { icon: 'warn', title: '投票活動已截止', body: '投票期間為 2026/12/07 至 2027/01/15，感謝您的參與！\n30 家年度精選店家將於 2 月 25 日揭曉。', b1: ['回首頁', 'go', 'home'], b2: ['查看中獎名單', 'go', 'lottery'] },
   verifySent: { icon: 'mail', title: '驗證信已寄出', body: '我們已寄送驗證信至［您的 Email］，請在 24 小時內點擊信中連結，完成會員驗證。\n沒有收到信嗎？請檢查垃圾郵件匣，或在 60 秒後重新寄送。', b1: ['（原型）模擬點擊信中連結', 'msg', 'verifyDone'], b2: ['重新寄送驗證信', 'noop', ''] },
@@ -267,10 +267,10 @@ const EXC = [
   { g: '帳號／登入', id: 'E09', name: '填表時登入逾時', when: '閒置超過［30］分鐘', how: '跳出逾時提示並登出；表單內容暫存，重新登入後自動帶回', scr: '提名表單', p: { phase: 'nom', loggedIn: true, screen: 'nomForm', modal: 'timeout' } },
   { g: '提名', id: 'E10', name: '未登入點開始提名', when: '未登入狀態點「開始提名」', how: '導向登入頁並說明原因，登入或註冊完成後自動回到提名表單', scr: '提名規則 → 登入 → 表單', p: { phase: 'nom', screen: 'nomRules' } },
   { g: '提名', id: 'E11', name: '必填未填／格式錯誤', when: '送出時驗證失敗', how: '頂部顯示摘要，欄位紅框加說明，捲動到第一個錯誤欄位；已填內容保留', scr: '提名表單', p: { phase: 'nom', loggedIn: true, screen: 'nomForm', formErr: true } },
-  { g: '提名', id: 'E12', name: '重複提名同一店家', when: '同帳號提名相同店家（店名＋地址比對）', how: '阻擋送出並提示，不計入提名數與抽獎機會；編輯提名時同樣檢查', scr: '提名表單／編輯視窗', p: { phase: 'nom', loggedIn: true, nomCount: 2, screen: 'nomForm', dupErr: true } },
+  { g: '提名', id: 'E12', name: '重複提名同一店家', when: '同帳號提名相同店家（店名＋地址比對）', how: '阻擋送出並提示，不計入提名數與抽獎機會', scr: '提名表單', p: { phase: 'nom', loggedIn: true, nomCount: 2, screen: 'nomForm', dupErr: true } },
   { g: '提名', id: 'E13', name: '已提名滿 10 家', when: '已提名 10 家仍點「開始提名」或「再推薦一家」', how: '顯示已達上限頁，引導至活動紀錄頁；送出成功頁隱藏「再推薦一家」', scr: '已達上限頁', p: { phase: 'nom', loggedIn: true, nomCount: 10, screen: 'msg', msgKey: 'nomFull' } },
   { g: '提名', id: 'E14', name: '提名截止後進入提名頁', when: '11/25 23:59 後進入提名相關網址', how: '顯示提名已截止頁；截止前開啟、截止後才送出的表單一律送出失敗並提示', scr: '提名已截止頁', p: { phase: 'review', screen: 'msg', msgKey: 'nomClosed' } },
-  { g: '提名', id: 'E15', name: '截止後編輯提名', when: '11/26 起在活動紀錄頁點「編輯」', how: '跳出「提名內容已鎖定」提示，不開啟編輯視窗', scr: '活動紀錄頁', p: { phase: 'review', loggedIn: true, nomCount: 3, screen: 'records', modal: 'editLocked' } },
+  { g: '提名', id: 'E15', name: '截止後刪除提名', when: '11/26 起在活動紀錄頁點「刪除」', how: '跳出「提名內容已鎖定」提示，不執行刪除', scr: '活動紀錄頁', p: { phase: 'review', loggedIn: true, nomCount: 3, screen: 'records', modal: 'editLocked' } },
   { g: '投票', id: 'E16', name: '未登入點投票', when: '未登入在店家詳情頁點「投他一票」', how: '導向登入，完成後回到同一家店的詳情頁', scr: '店家詳情 → 登入 → 店家詳情', p: { phase: 'vote', screen: 'storeDetail', storeIdx: 0 } },
   { g: '投票', id: 'E17', name: '該品項票數已用完', when: '該品項 3 票已全部投出', how: '隱藏投票按鈕，改顯示已用完及其他品項剩餘票數，提供「去投其他品項」', scr: '店家詳情頁', p: { phase: 'vote', loggedIn: true, voted: true, votes: { beef: 0, douhua: 3, pine: 1 }, voteLog: [{ cat: 'beef', name: '[牛肉麵店家 01]', q: 1 }, { cat: 'beef', name: '[牛肉麵店家 02]', q: 1 }, { cat: 'beef', name: '[牛肉麵店家 03]', q: 1 }, { cat: 'pine', name: '[鳳梨酥店家 01]', q: 1 }, { cat: 'pine', name: '[鳳梨酥店家 02]', q: 1 }], screen: 'storeDetail', storeIdx: 0 } },
   { g: '投票', id: 'E18', name: '投票送出失敗（網路）', when: '網路中斷或伺服器錯誤', how: '明確告知「未記錄、未扣票」，提供重新送出；伺服器需防重複送出，同一請求只扣一次票', scr: '投票確認視窗', p: { phase: 'vote', loggedIn: true, screen: 'storeDetail', storeIdx: 4, failNext: true, modal: 'vote' } },
@@ -355,7 +355,9 @@ const A = {
   },
   retryVote: () => set({ modal: 'vote' }),
   afterVote: () => nav('storeList'),
-  editNom: () => set({ modal: S.phase === 'nom' ? 'edit' : 'editLocked' }),
+  delNom: v => set({ modal: S.phase === 'nom' ? 'delNom' : 'editLocked', delIdx: +v }),
+  confirmDel: () => set({ nomCount: Math.max(0, S.nomCount - 1), modal: 'delDone' }),
+  renom: () => { set({ modal: '' }); startNom(); },
   feedback: () => set({ modal: 'feedback', fbCopied: false, fbSent: false, fbErr: '' }),
   fbSend: () => {
     const text = (document.getElementById('fb-text') || {}).value || '';
@@ -529,7 +531,7 @@ function nomForm() {
   <label class="chk"><input type="checkbox">我已閱讀並同意${b('服務條款', 'go', 'terms', 'linkb')}、${b('隱私權政策', 'go', 'terms', 'linkb')}及資料授權條款</label>${et('請勾選同意條款')}
   <div class="ph" style="width:300px;height:76px;background:#fafafa;border:1px solid #d3d3d3">[reCAPTCHA]</div>
   <div style="display:flex;justify-content:center">${b('送出提名 →', 'submitNom', '', 'btn', 'style="min-width:220px"')}</div></div>
-  <div style="font-size:14px;line-height:1.8"><b>注意事項</b><br>1. 每個會員帳號最多可提名 10 家店家，可分散於不同品項，也可集中於同一品項。<br>2. 同一帳號不能重複提名同一家店家。<br>3. 請確認店家名稱與地址正確。資料有誤或無法辨識的提名，主辦單位得予以刪除。<br>4. 提名期間可至「活動紀錄」修改提名內容，11 月 26 日起將無法修改。</div></div>`;
+  <div style="font-size:14px;line-height:1.8"><b>注意事項</b><br>1. 每個會員帳號最多可提名 10 家店家，可分散於不同品項，也可集中於同一品項。<br>2. 同一帳號不能重複提名同一家店家。<br>3. 請確認店家名稱與地址正確。資料有誤或無法辨識的提名，主辦單位得予以刪除。<br>4. 提名送出後無法修改。如需更正，請於提名期間內至「活動紀錄」刪除該筆提名後重新提名；11 月 26 日起提名內容即鎖定。</div></div>`;
 }
 function nomSuccess() {
   const more = S.nomCount < 10;
@@ -545,9 +547,9 @@ function records() {
   for (let i = 0; i < S.nomCount; i++) {
     let st = '<span class="pill">審核中</span>';
     if (vs) st = i % 4 === 3 ? '<span class="pill no">未通過審查（原因：資料不完整）</span>' : '<span class="pill ok">通過審查</span>';
-    rows += `<div class="row"><span>［提名店家 ${i + 1}］</span><span>${CAT[CATS[i % 3]]}</span><span>［已勾選的推薦理由］</span><span>${st}</span><span>${b('編輯', 'editNom', '', 'btn2 btnS')}</span></div>`;
+    rows += `<div class="row"><span>［提名店家 ${i + 1}］</span><span>${CAT[CATS[i % 3]]}</span><span>［已勾選的推薦理由］</span><span>${st}</span><span>${b('刪除', 'delNom', i, 'btn2 btnS')}</span></div>`;
   }
-  const noms = S.nomCount ? `<div class="stack" style="gap:3px"><div class="row th"><span>店家名稱</span><span>品項</span><span>推薦理由</span><span>審核狀態</span><span>編輯</span></div>${rows}</div>`
+  const noms = S.nomCount ? `<div class="stack" style="gap:3px"><div class="row th"><span>店家名稱</span><span>品項</span><span>推薦理由</span><span>審核狀態</span><span>操作</span></div>${rows}</div>`
     : `<div style="background:#fff;border-radius:10px;padding:32px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><div>您還沒有提名任何店家</div>${iff(S.phase === 'nom', b('立即提名', 'nomRules', '', 'btn btnS'))}</div>`;
   const vrows = CATS.map(c => { const it = S.voteLog.filter(v => v.cat === c).map(v => v.name); return `<div class="row row4"><span>${CAT[c]}</span><span>${3 - S.votes[c]}/3</span><span class="sp2">${it.length ? it.join('、') : '尚未投票'}</span></div>`; }).join('');
   const votes = vs ? `<div class="stack" style="gap:3px"><div class="row row4 th"><span>品項</span><span>已投票數</span><span class="sp2">投給哪些店家</span></div>${vrows}</div><div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><span>投票期抽獎資格：<b>${S.voted ? '已獲得' : '尚未獲得（完成任一品項投票即可獲得）'}</b></span><span style="color:#444">投票送出後無法修改</span></div>`
@@ -555,7 +557,7 @@ function records() {
   return `<section class="phead"><h1>活動紀錄</h1></section><div style="background:#f0f0f0;padding-bottom:24px"><div class="sec stack" style="gap:28px">
   <div style="background:#d9d9d9;border-radius:14px;padding:24px 40px;display:flex;align-items:center;gap:20px"><div style="width:64px;height:64px;border-radius:50%;background:#c9c2a0"></div><div style="flex:1"><div style="font-size:18px;font-weight:700">［會員名稱］</div><div style="font-size:14px;color:#444">［會員 Email］</div></div>${b('登出', 'logout', '')}</div>
   <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:20px;font-weight:700">我的提名</div><div style="display:flex;gap:8px"><span class="chip">已提名 ${S.nomCount}/10 家</span><span class="chip">抽獎機會 ${Math.min(S.nomCount, 5)}/5</span></div></div>
-  <div class="anno" style="margin-bottom:8px">原型說明：提名期內可編輯；11/26 起無法修改</div>${noms}</div>
+  <div class="anno" style="margin-bottom:8px">原型說明：提名送出後無法修改；提名期內可刪除後重新提名，11/26 起鎖定</div>${noms}</div>
   <div><div style="font-size:20px;font-weight:700;margin-bottom:12px">我的投票</div>${votes}</div></div></div>`;
 }
 function voteRules() {
@@ -655,8 +657,9 @@ function modal() {
     voteDone: `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>投票成功！感謝您的支持</h3><p style="margin:0;line-height:1.8">您已投給「${S.lastStore}」1 票，${st.catLabel}還剩 ${rem} 票。</p>${iff(S.firstVote, '<div class="chip" style="background:#fff6d6">恭喜您獲得投票期抽獎資格！</div>')}<div style="display:flex;gap:12px">${b('繼續逛店家', 'afterVote', '')}${b('分享這家店', 'openShare', '', 'btn2')}</div></div>`,
     voteFail: `<h3>投票未完成</h3><p style="margin:0;line-height:1.8">網路連線不穩定，這次投票沒有送出，票數也不會扣除。請確認網路連線後再試一次。</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('重新送出', 'retryVote', '')}</div>`,
     share: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>分享給親友</h3>${x}</div><div class="g3" style="gap:12px"><button class="btn2">Facebook</button><button class="btn2">LINE</button>${b('複製連結', 'copyLink', '', 'btn2')}</div>${iff(S.copied, '<div class="infobox" style="text-align:center">已複製連結</div>')}<div class="anno">原型說明：從店家頁分享時帶該店專屬網址與分享圖；從首頁分享則帶活動首頁</div>`,
-    edit: `<div style="display:flex;justify-content:space-between;align-items:center"><h3>編輯提名內容</h3>${x}</div><div class="fgrid"><div class="fg"><label class="lbl" for="e-cat">推薦品項</label><select id="e-cat" class="inp"><option>牛肉麵（正餐）</option><option>豆花（甜點）</option><option>鳳梨酥（伴手禮）</option></select></div><div class="fg"><label class="lbl" for="e-name">店家名稱</label><input id="e-name" class="inp" placeholder="［原店家名稱］"></div><div class="fg"><label class="lbl" for="e-city">所在縣市</label><select id="e-city" class="inp"><option>［原縣市］</option></select></div><div class="fg"><label class="lbl" for="e-addr">店家地址</label><input id="e-addr" class="inp" placeholder="［原地址］"></div></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;font-size:14px">${['經典口味', '嚴選食材', '職人傳承', '海外友善', '造訪體驗', '創新風味'].map(t => `<label class="chk"><input type="checkbox">${t}</label>`).join('')}</div><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('儲存修改', 'closeModal', '')}</div>`,
-    editLocked: `<h3>提名內容已無法修改</h3><p style="margin:0;line-height:1.8">提名期已於 2026/11/25 23:59 截止，您的提名已進入資格審查。</p><div class="mrow">${b('我知道了', 'closeModal', '')}</div>`,
+    delNom: `<h3>確定要刪除這筆提名嗎？</h3><p style="margin:0;line-height:1.8">您將刪除「［提名店家 ${(S.delIdx || 0) + 1}］」。刪除後，提名數與抽獎機會會一併扣除，且無法復原。<br>提名送出後無法修改，如需更正內容，請刪除後重新提名。</p><div class="mrow">${b('取消', 'closeModal', '', 'btn2')}${b('確認刪除', 'confirmDel', '')}</div>`,
+    delDone: `<h3>已刪除這筆提名</h3><p style="margin:0;line-height:1.8">目前已提名 ${S.nomCount}/10 家。如需更正，可以重新提名這家店。</p><div class="mrow">${b('關閉', 'closeModal', '', 'btn2')}${b('重新提名 →', 'renom', '')}</div>`,
+    editLocked: `<h3>提名內容已鎖定</h3><p style="margin:0;line-height:1.8">提名期已於 2026/11/25 23:59 截止，提名內容已鎖定，無法刪除或修改。您的提名已進入資格審查。</p><div class="mrow">${b('我知道了', 'closeModal', '')}</div>`,
     timeout: `<h3>登入時間已逾時</h3><p style="margin:0;line-height:1.8">為保護您的帳號安全，閒置超過 30 分鐘將自動登出。您填寫的內容已暫存，重新登入後即可繼續填寫。</p><div class="mrow">${b('重新登入', 'relogin', '')}</div>`,
     feedback: S.fbSent
       ? `<div style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>已送出，感謝您的意見！</h3><p style="margin:0;line-height:1.8">我們會盡快整理並回覆您。</p><div style="display:flex;gap:12px">${b('繼續提供意見', 'fbAgain', '', 'btn2')}${b('關閉', 'closeModal', '')}</div></div>`
@@ -677,9 +680,9 @@ function flowView() {
   ${lane('<b>預熱期</b>～ 2026/11/01', [[s('廣告／社群曝光'), s('首頁（即將開跑＋倒數）'), s('活動辦法'), s('離站，等待開跑')]], '<b>導覽列：</b>活動首頁｜活動辦法。直接進入投票網址 → 尚未開始頁' + exTag('E20'))}
   ${lane('<b>提名期</b>11/02 – 11/25', [
     [s('首頁'), s('提名規則說明'), s('開始提名'), d('已登入？' + exTag('E10')), d('未滿 10 家？' + exTag('E13')), s('提名表單' + exTag('E11') + exTag('E12')), s('送出成功（X/10、抽獎機會 Y/5）')],
-    [s('送出成功'), s('再推薦一家／查看我的提名（可編輯）／分享給朋友')]
+    [s('送出成功'), s('再推薦一家／查看我的提名（可刪除後重新提名）／分享給朋友')]
   ], '<b>導覽列：</b>活動首頁｜活動辦法｜我要提名。首頁浮動按鈕：我要提名、分享好友。')}
-  ${lane('<b>審查期</b>11/26 – 12/06', [[s('首頁（審查中進度＋抽獎公告預告）'), s('活動紀錄頁（查看審核狀態）'), s('點編輯 → 已鎖定提示' + exTag('E15'))]], '<b>導覽列：</b>活動首頁｜活動辦法。進入提名網址 → 提名已截止頁' + exTag('E14'))}
+  ${lane('<b>審查期</b>11/26 – 12/06', [[s('首頁（審查中進度＋抽獎公告預告）'), s('活動紀錄頁（查看審核狀態）'), s('點刪除 → 已鎖定提示' + exTag('E15'))]], '<b>導覽列：</b>活動首頁｜活動辦法。進入提名網址 → 提名已截止頁' + exTag('E14'))}
   ${lane('<b>投票期</b>12/07 – 01/15', [
     [s('首頁（公告列：提名抽獎名單）'), s('投票規則說明'), s('店家瀏覽（品項／縣市篩選、搜尋）' + exTag('E19')), s('店家詳情'), d('已登入？' + exTag('E16')), d('該品項尚有票？' + exTag('E17'))],
     [s('投他一票（每家限 1 票）'), s('確認視窗（送出後不可修改）'), s('投票成功（剩餘票數、首次投票獲抽獎資格）' + exTag('E18')), s('繼續瀏覽／投其他品項／分享此店家')]
